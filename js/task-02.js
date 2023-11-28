@@ -18,7 +18,7 @@ const createGallery = () => {
   const galleryItem = images
     .map(
       image => `<li class='gallery-item'>
-  <img class='gallery-img' src='${image.url} alt='${image.alt}'/>
+  <img class='gallery-img' src='${image.url} alt='${image.alt}' width='300'/>
   </li>'`
     )
     .join('');
@@ -33,11 +33,7 @@ const styles = () => {
   list.style.listStyleType= 'none';
   list.style.display = 'flex';
   list.style.gap = '20px';
-  document.querySelectorAll('.gallery-img').forEach(item => {
-    item.style.width = '300px';
-    
-  }
-    )
+  
   
 }
 

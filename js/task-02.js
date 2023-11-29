@@ -24,17 +24,14 @@ const createGallery = () => {
     .join('');
   list.insertAdjacentHTML('afterbegin', galleryItem);
 
-  console.log(list);
+  
 };
 
 createGallery();
 
-const styles = () => {
+
   list.style.listStyleType= 'none';
   list.style.display = 'flex';
   list.style.gap = '20px';
   
   
-}
-
-styles()

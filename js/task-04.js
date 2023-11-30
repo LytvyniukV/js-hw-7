@@ -1,14 +1,18 @@
-const user = {
-  email: '',
-  password: '',
+class User {
+  constructor(email, password){
+    this.email = email;
+    this.password = password;
+  };
   setEmail(newEmail) {
     this.email = newEmail;
-  },
+  };
   setPassword(newPassword) {
     this.password = newPassword;
-  },
-};
+  };
+}
 
+const newUser = new User;
+ 
 
 const getUserData = () => {
   const registerForm = document.querySelector('.login-form');
@@ -20,14 +24,14 @@ const getUserData = () => {
     const password = form.elements.password.value.trim();
     if (login === '' || password === '') {
       alert('All form fields must be filled in');
-    } 
-      user.setEmail(login);
-      user.setPassword(password)
-      console.log(user);
+    } else {
+      newUser.setEmail(login);
+      newUser.setPassword(password);
+      console.log(newUser);
       form.reset();
-    
+    }
   }
- 
 };
 
-getUserData()
+getUserData();
+

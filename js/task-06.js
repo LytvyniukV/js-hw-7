@@ -4,7 +4,6 @@ function getRandomColor() {
     .padStart(6, 0)}`;
 }
 
-
 const amountElements = document.querySelector('#controls input'),
   createElements = document.querySelector('button[data-create]'),
   destroyElements = document.querySelector('button[data-destroy]'),
@@ -13,18 +12,39 @@ const amountElements = document.querySelector('#controls input'),
 boxesElements.style.gap = '15px';
 boxesElements.style.marginTop = '20px';
 
-const createBoxes = amount => {
+const boxes = [];
+
+const createArray = amount => {
   for (let i = 0; i < amount; i++) {
-     
-      let element = document.createElement('div');
+    boxes.unshift({ width: 30, heigth: 30, color: getRandomColor() });
 
-      element.style.width = 30 + 10 * i + 'px';
-      element.style.height = 30 + 10 * i + 'px';
-      element.style.marginTop = '10px'
-      element.style.backgroundColor = getRandomColor();
+    for (let i = 0; i < boxes.length; i++) {
+      boxes[i].width += 10;
+      boxes[i].heigth += 10;
+    }
+  }
 
-      boxesElements.append(element);
-     
+  return boxes;
+};
+
+const createBoxes = () => {
+  let amount = amountElements.value;
+  if (amount > 0 && amount <= 100) {
+    boxesElements.innerHTML = '';
+    createArray(amountElements.value);
+    const newBoxes = boxes.reduce(
+      (html, div) =>
+        html +
+        `<div style='width: ${div.width}px; height: ${div.heigth}px; background-color: ${div.color}; margin-top: 20px'></div>`,
+      ''
+    );
+    boxesElements.insertAdjacentHTML('afterbegin', newBoxes);
+
+    amountElements.value = '';
+    boxes.length = 0;
+  } else {
+    alert('Please, enter a number from 1 to 100');
+    amountElements.value = '';
   }
 };
 
@@ -32,16 +52,5 @@ const destroyBoxes = () => {
   boxesElements.innerHTML = '';
 };
 
-createElements.addEventListener('click', () => {
-  let amount = amountElements.value;
-  if (amount > 0 && amount <= 100){
-    boxesElements.innerHTML = '';
-    createBoxes(amount);
-    amountElements.value = '';
-  }else {
-    alert('Please, enter a number from 1 to 100');
-    amountElements.value = '';
-  }
-  
-});
+createElements.addEventListener('click', createBoxes);
 destroyElements.addEventListener('click', destroyBoxes);

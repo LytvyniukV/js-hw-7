@@ -12,25 +12,23 @@ const amountElements = document.querySelector('#controls input'),
 boxesElements.style.gap = '15px';
 boxesElements.style.marginTop = '20px';
 
-const boxes = [];
-
-const createArray = amount => {
-  for (let i = 0; i < amount; i++) {
-    boxes.unshift({ width: 30, heigth: 30, color: getRandomColor() });
-
-    for (let i = 0; i < boxes.length; i++) {
-      boxes[i].width += 10;
-      boxes[i].heigth += 10;
-    }
-  }
-
-  return boxes;
-};
-
 const createBoxes = () => {
   let amount = amountElements.value;
+  const boxes = [];
+
+  const createArray = amount => {
+    for (let i = 0; i < amount; i++) {
+      boxes.unshift({ width: 30, heigth: 30, color: getRandomColor() });
+
+      for (let i = 0; i < boxes.length; i++) {
+        boxes[i].width += 10;
+        boxes[i].heigth += 10;
+      }
+    }
+
+    return boxes;
+  };
   if (amount > 0 && amount <= 100) {
-    boxesElements.innerHTML = '';
     createArray(amountElements.value);
     const newBoxes = boxes.reduce(
       (html, div) =>
@@ -38,7 +36,7 @@ const createBoxes = () => {
         `<div style='width: ${div.width}px; height: ${div.heigth}px; background-color: ${div.color}; margin-top: 20px'></div>`,
       ''
     );
-    boxesElements.insertAdjacentHTML('afterbegin', newBoxes);
+    boxesElements.innerHTML = newBoxes;
 
     amountElements.value = '';
     boxes.length = 0;
